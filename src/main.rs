@@ -1,10 +1,14 @@
 #![allow(unused)]
 
+use unicode_bidi::{LTR_LEVEL, RTL_LEVEL};
+
 mod text;
 
 fn main() {
-    let data = "مِن امْبِرِّ امْصِيامُ في امْسَفَرِ1  3 
+    let data = "H مِن امْبِرِّ امْصِيامُ في امْسَفَرِ1  H 3 
     123 « F تشکیل";
+
+    let data = " امْصِيامُ في امْسَفَرِ";
 
     let mut fontdb = fontdb::Database::new();
     fontdb.load_fonts_dir("fonts");

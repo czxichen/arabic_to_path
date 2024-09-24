@@ -8,7 +8,7 @@ use rustybuzz::{
 use serde::{Deserialize, Serialize};
 use std::fmt::{Error, Write};
 use tiny_skia_path::{Path, PathBuilder, PathSegment, Transform};
-use unicode_bidi::Level;
+use unicode_bidi::{Level, LTR_LEVEL, RTL_LEVEL};
 
 #[macro_export]
 macro_rules! map {
@@ -74,7 +74,10 @@ impl Text {
 
         let mut current_x = 0.0;
         let mut current_y = 0.0;
-        let bidi_info = unicode_bidi::BidiInfo::new(&self.text, Some(unicode_bidi::LTR_LEVEL));
+        let mut bidi_info = unicode_bidi::BidiInfo::new(&self.text, None);
+        if bidi_info.levels.iter().any(|v| v.is_ltr()) {
+            bidi_info = unicode_bidi::BidiInfo::new(&self.text, Some(LTR_LEVEL));
+        }
         let mut height = 0.0f32;
         for para in &bidi_info.paragraphs {
             let source = &self.text[para.range.clone()];
@@ -266,7 +269,7 @@ fn test_path() {
 123 « F تشکیل";
 
     let mut fontdb = fontdb::Database::new();
-    fontdb.load_fonts_dir("fonts");
+    fontdb.load_fonts_dir("/Users/djl9460/data/code/rust/AiPlugin/ai_server/doc/fonts");
     let text = Text {
         x: 0.0,
         y: 0.0,
