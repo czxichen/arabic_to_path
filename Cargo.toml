@@ -1,0 +1,17 @@
+[package]
+name = "render"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+svg = "0.17.0"
+fontdb = "0.22.0"
+rustybuzz = "0.18.0"
+ttf-parser = "0.24.1"
+unicode-bidi = "0.3.15"
+tiny-skia-path = "0.11.4"
+harfbuzz = { version = "0.6.0" }
+serde = { version = "1.0.210", features = ["derive"] }
+icu_harfbuzz = { version = "0.2.0", features = ["compiled_data"] }
+icu = "1.5.0"
+flame = "0.2.2"
